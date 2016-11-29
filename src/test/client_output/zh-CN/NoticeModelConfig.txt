@@ -1,0 +1,10 @@
+{"modelName":"NoticeModel"}
+||
+{
+	"itemID":2106000001,
+	"alias":"NOTICE$1",
+	"priority":"1",
+	"desc":"null",
+	"name":"游戏公告",
+	"detailList":["尊敬的玩家：\n  欢迎来到《烽火九州》的世界，您可以通过<color=#00ff00>掠夺资源，发展经济，组建部队</color>来打造自己的无敌军队，<color=#00ff00>攻占皇城，征服世界</color>。\n\n  欢迎加入官方玩家<color=#00ff00>QQ群：485909000</color>，调戏GM客服妹子(QQ：2375198258)并<color=#00ff00>领取神秘大礼包（海量资源+道具元宝）</color>哦。"]
+}

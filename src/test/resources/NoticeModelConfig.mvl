@@ -1,0 +1,12 @@
+{"modelName":"NoticeModel"}
+||
+@foreach{item : itemList}
+{
+	"itemID":@{item.id},
+	"alias":"@{item.alias}",
+	"priority":"@{item.priority}",
+	"desc":"@{item.desc}",
+	"name":"@{item.name}",
+	"detailList":[@foreach{detail : item.detail}"@{detail.desc}"@end{","}]
+}
+@end{"||"}

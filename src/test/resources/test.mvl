@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<itemList>
+	@foreach{item : itemList}
+	<item>
+		<id>@{item.id}</id>
+		<alias>@{item.alias}</alias>
+		<desc>@{item.desc}</desc>
+		<buildingType>@{item.buildingType}</buildingType>
+		<attrAliasSet>
+			<alias>BUI_OWNER$owner</alias>
+			<alias>PLA$player</alias>
+			@if{item.buildingType!="IMPERIAL_CITY"}
+			<alias>BUI$imperialCity</alias>
+			@end{}
+		</attrAliasSet>	
+		<testLists>@foreach{testList : item.testList}
+			<testList>@foreach{id : testList.subList}
+				<subList>@{id}</subList>@end{}
+			</testList>@end{}
+		</testLists>
+		<behaviorPlanList>
+			@if{item.upgradable=="true"}
+			<behaviorPlan>
+				<behavior>BUILDING_$UPGRADE</behavior>
+				<actionPlanList>
+					<actionPlan>
+						<action>BUILDING_$UPGRADE_$NORMAL</action>
+						<demandList>
+							<demand>
+								<demandType>BUILDING_LEVEL_LT</demandType>
+								<current><![CDATA[building.getLevel()]]></current>
+								<expect><![CDATA[building.getTopLevel()]]></expect>
+								<fx><![CDATA[return current<expect]]></fx>
+							</demand>
+							<demand>
+								<demandType>BUILDING_IN_BUILDING_TIMES_LT</demandType>
+								<current><![CDATA[return BUI_OWNER$owner.isBuilding(building.getID())?1:0]]></current>
+								<expect><![CDATA[1]]></expect>
+								<fx><![CDATA[return current<expect]]></fx>
+							</demand>
+						</demandList>
+						<costPlan>
+							<costList>
+								@foreach{upgradeCost : item.upgCosts}
+								<cost>
+									<itemAlias>@{upgradeCost.ca}</itemAlias>
+									<expect><![CDATA[@{upgradeCost.cn}]]></expect>
+								</cost>
+								@end{}
+							</costList>
+						</costPlan>
+						<awardPlan>
+							<awardGroupSet>
+								<awardGroup>
+									<awardList>
+										@foreach{upgradeAward : item.upgAws}
+										<award>
+											<itemAlias>@{upgradeAward.aa}</itemAlias>
+											<fx><![CDATA[@{upgradeAward.an}]]></fx>
+										</award>
+										@end{}
+									</awardList>
+								</awardGroup>
+							</awardGroupSet>
+						</awardPlan>
+					</actionPlan>
+					<actionPlan>
+						<action>BUILDING_$UPGRADE_$SYCEE</action>
+						<demandList>
+							<demand>
+								<demandType>BUILDING_LEVEL_LT</demandType>
+								<current><![CDATA[building.getLevel()]]></current>
+								<expect><![CDATA[building.getTopLevel()]]></expect>
+								<fx><![CDATA[return current<expect]]></fx>
+							</demand>
+							<demand>
+								<demandType>BUILDING_IN_BUILDING_TIMES_LT</demandType>
+								<current><![CDATA[return BUI_OWNER$owner.isBuilding(building.getID())?1:0]]></current>
+								<expect><![CDATA[1]]></expect>
+								<fx><![CDATA[return current<expect]]></fx>
+							</demand>
+						</demandList>
+						<costPlan>
+							<costList>
+								<cost>
+									<itemAlias>RES$sycee</itemAlias>
+									<expect><![CDATA[@{item.upgradeGoldNum}]]></expect>
+								</cost>
+							</costList>
+						</costPlan>
+						<awardPlan>
+							<awardGroupSet>
+								<awardGroup>
+									<awardList>
+										@foreach{upgradeAward : item.upgAws}
+										<award>
+											<itemAlias>@{upgradeAward.aa}</itemAlias>
+											<fx><![CDATA[@{upgradeAward.an}]]></fx>
+										</award>
+										@end{}
+									</awardList>
+								</awardGroup>
+							</awardGroupSet>
+						</awardPlan>
+					</actionPlan>
+					<actionPlan>
+						<action>BUILDING_$UPGRADE_$AUTO</action>
+						<demandList>
+							<demand>
+								<demandType>BUILDING_LEVEL_LT</demandType>
+								<current><![CDATA[building.getLevel()]]></current>
+								<expect><![CDATA[building.getTopLevel()]]></expect>
+								<fx><![CDATA[return current<expect]]></fx>
+							</demand>
+						</demandList>
+						<awardPlan>
+							<awardGroupSet>
+								<awardGroup>
+									<awardList>
+										@foreach{upgradeAward : item.upgAws}
+										<award>
+											<itemAlias>@{upgradeAward.aa}</itemAlias>
+											<fx><![CDATA[@{upgradeAward.aa}]]></fx>
+										</award>
+										@end{}
+									</awardList>
+								</awardGroup>
+							</awardGroupSet>
+						</awardPlan>
+					</actionPlan>
+				</actionPlanList>
+			</behaviorPlan>
+			@end{}	
+			<behaviorPlan>
+				<behavior>BUILDING_$BUILD</behavior>
+				<actionPlanList>
+					<actionPlan>
+						<action>BUILDING_$BUILD_$NORMAL</action>
+						<demandList>
+							<demand>
+								<demandType>BUILDING_TYPE_EQ</demandType>
+								<current><![CDATA[0]]></current>
+								<expect><![CDATA[0]]></expect> 
+								<fx><![CDATA[return building.getModel().isAutoBuild() ?
+								building.getModel().getDefaulBuilding().getID()==@{item.id} :
+								building.getModel().getBuildableBuildings().contains(BuildingType.@{item.buildingType})]]></fx>
+							</demand>
+							<demand>
+								<demandType>BUILD_QUEUE_NUM_GE</demandType>
+								<current><![CDATA[BUI_OWNER$owner.countIdleBuildingQueueNum()]]></current>
+								<expect><![CDATA[1]]></expect>
+								<fx><![CDATA[return current>=expect]]></fx>
+							</demand>
+						</demandList>
+						<costPlan>
+							<costList>
+								@foreach{buildCost : item.buildCosts}
+								<cost>
+									<itemAlias>@{buildCost.ca}</itemAlias>
+									<expect><![CDATA[@{buildCost.cn}]]></expect>
+								</cost>
+								@end{}
+							</costList>
+						</costPlan>
+						<awardPlan>
+							<awardGroupSet>
+								<awardGroup>
+									<awardList>
+										<award>
+											<itemAlias>@{item.alias}</itemAlias>
+											<fx><![CDATA[1]]></fx>
+											<paramMap>
+												<tradeParam>	
+													<param>BUILDING_ID</param>
+													<formula><![CDATA[building.getID()]]></formula>
+												</tradeParam>
+											</paramMap>
+										</award>
+										@if{item.buildingType=="BARRACKS"||item.buildingType=="ACADEMY"||item.buildingType=="PARADE_GROUND"||item.buildingType=="MANUFACTURER"}
+										<award>
+											<itemAliasFx><![CDATA[building.getModel().getProducerModel().getAlias()]]></itemAliasFx>
+											<fx><![CDATA[1]]></fx>
+										</award>
+										@end{}
+									</awardList>
+								</awardGroup>
+							</awardGroupSet>
+						</awardPlan>
+					</actionPlan>
+				</actionPlanList>	
+			</behaviorPlan>	
+		</behaviorPlanList>	
+		<abilityMap>
+			<itemAbility>
+				<ability>TOP_LEVEL</ability>
+				<formula><![CDATA[@{item.maxLevel}]]></formula>
+			</itemAbility>
+			<itemAbility>
+				<ability>BASE_BUILD_CD</ability>
+				<formula><![CDATA[@{item.upgradeCD}]]></formula>
+			</itemAbility>
+			@foreach{ability : item.ablis}
+			<itemAbility>
+				<ability>@{ability.abil}</ability>
+				<formula><![CDATA[@{ability.fx}]]></formula>
+			</itemAbility>
+			@end{}
+		</abilityMap>	
+	</item>
+	@end{}
+</itemList>

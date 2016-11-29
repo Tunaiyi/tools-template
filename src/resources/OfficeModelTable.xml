@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<table>
+	<config>
+		<mvl>/OfficeModel.mvl</mvl>
+		<output>/temp/OfficeModel.xml</output>
+	</config>
+	<attributeMap>
+		<itemList class="list">
+			<item id='1046000001' alias='OFFICE$1' desc='国君' officeType='MONARCH' title='TITLE$611' disOfficerCost='0' canVenerate='true' venerateCD='600000' makeOfficerCost='null'>
+				<powers class="list">
+					<power policy='POLICY$welfare' />
+				</powers>
+				<venAwards class="list">
+					<award ca='RESC$coin' cn='player.getLevel()*player.getLevel()*30' />
+				</venAwards>
+				<welfare class="list">
+				</welfare>
+			</item>
+			<item id='1046000002' alias='OFFICE$2' desc='左丞相' officeType='EASTPRIME_MINISTER' title='TITLE$611' disOfficerCost='0' canVenerate='true' venerateCD='600000' makeOfficerCost='null'>
+				<powers class="list">
+					<power policy='POLICY$welfare' />
+				</powers>
+				<venAwards class="list">
+					<award ca='RESC$coin' cn='player.getLevel()*player.getLevel()*30' />
+				</venAwards>
+				<welfare class="list">
+				</welfare>
+			</item>
+		</itemList>
+	</attributeMap>
+</table>

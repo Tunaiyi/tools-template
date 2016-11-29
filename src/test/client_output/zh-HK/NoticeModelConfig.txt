@@ -1,0 +1,10 @@
+{"modelName":"NoticeModel"}
+||
+{
+	"itemID":2106000001,
+	"alias":"NOTICE$1",
+	"priority":"1",
+	"desc":"null",
+	"name":"遊戲公告",
+	"detailList":["尊敬的主公：\n  歡迎來到《烽火三國》，您可以通過<color=#00ff00>掠奪資源，發展經濟，組建部隊</color>來建造自己的諸侯勢力，<color=#00ff00>共謀天下大計，縱論亂世諸侯</color>。"]
+}
