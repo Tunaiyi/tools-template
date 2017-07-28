@@ -1,17 +1,16 @@
 package funs.tools.template;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import funs.tools.template.excel.GCell;
+import funs.tools.template.excel.GRow;
+import funs.tools.template.excel.GSheet;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import funs.tools.template.excel.GCell;
-import funs.tools.template.excel.GRow;
-import funs.tools.template.excel.GSheet;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class GlobalTemplateSheet implements TemplateSheet {
 
@@ -32,18 +31,13 @@ public class GlobalTemplateSheet implements TemplateSheet {
 	}
 
 	@Override
-	public String getOutput() {
-		return null;
-	}
-
-	@Override
 	public boolean needOutPut() {
 		return false;
 	}
 
 	@Override
-	public String getMvl() {
-		return null;
+	public List<TemplateSheetConfig> getConfigs() {
+		return Collections.emptyList();
 	}
 
 	@Override
@@ -80,11 +74,6 @@ public class GlobalTemplateSheet implements TemplateSheet {
 	}
 
 	protected void parse(GCell cell) {
-	}
-
-	@Override
-	public List<String> getProfiles() {
-		return Collections.emptyList();
 	}
 
 	protected void parse(GSheet sheet) {

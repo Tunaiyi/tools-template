@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.funs.game</groupId>
-	<artifactId>toots-template</artifactId>
+	<artifactId>tools-template</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>烽火九州</name>
 	<description>烽火九州web game</description>
@@ -28,11 +28,7 @@
 				<version>2.12.3</version>
 				<executions>
 					<execution>
-						<id>default-test</id>
-						<phase>test</phase>
-						<goals>
-							<goal>test</goal>
-						</goals>
+
 					</execution>
 				</executions>
 			</plugin>

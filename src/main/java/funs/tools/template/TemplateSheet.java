@@ -5,16 +5,12 @@ import java.util.Map;
 
 public interface TemplateSheet {
 
-	public String getName();
+	String getName();
 
-	public boolean needOutPut();
+	boolean needOutPut();
 
-	public String getOutput();
-	
-	public List<String> getProfiles();
+	List<TemplateSheetConfig> getConfigs();
 
-	public String getMvl();
-
-	public Map<String, Object> getAttributeMap(String profile);
+	Map<String, Object> getAttributeMap(String profile);
 
 }

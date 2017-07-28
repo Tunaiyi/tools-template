@@ -41,19 +41,21 @@ public class ConfigFileUtil {
         try {
             in = new FileInputStream(config);
             SheetSrcType type = SheetSrcType.getByFile(config);
-            TemplateSheetManager excelManager = new TemplateSheetManager(in, type, filter);
+            TemplateSheetManager excelManager = new TemplateSheetManager(config.getName(), in, type, filter);
             TemplateSheet paramSheet = excelManager.getTemplateSheetBy(TemplateSheetManager.GLOBAL_SHEET_NAME);
             for (TemplateSheet sheet : excelManager.getTemplateSheetList()) {
                 if (!sheet.needOutPut())
                     continue;
-                List<String> profiles = sheet.getProfiles();
-                String mvlFilePath = dir.getAbsolutePath() + sheet.getMvl();
-                String outputPath = dir.getAbsolutePath() + sheet.getOutput();
-                if (profiles.isEmpty()) {
-                    outputByProfile(config, sheet, paramSheet, mvlFilePath, outputPath, "", errorList, trim);
-                } else {
-                    for (String profile : profiles)
-                        outputByProfile(config, sheet, paramSheet, mvlFilePath, outputPath, profile, errorList, trim);
+                for (TemplateSheetConfig sheetConfig : sheet.getConfigs()) {
+                    List<String> profiles = sheetConfig.getProfiles();
+                    String mvlFilePath = dir.getAbsolutePath() + sheetConfig.getMvl();
+                    String outputPath = dir.getAbsolutePath() + sheetConfig.getOutput();
+                    if (profiles.isEmpty()) {
+                        outputByProfile(config, sheet, paramSheet, mvlFilePath, outputPath, "", errorList, trim);
+                    } else {
+                        for (String profile : profiles)
+                            outputByProfile(config, sheet, paramSheet, mvlFilePath, outputPath, profile, errorList, trim);
+                    }
                 }
             }
         } catch (Throwable e) {
