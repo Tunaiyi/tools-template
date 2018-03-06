@@ -1,23 +1,11 @@
 package funs.tools.template;
 
-import funs.tools.template.excel.SheetFilter;
-import funs.tools.template.excel.TemplateSheetManager;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
+import funs.tools.template.excel.*;
+import org.apache.commons.io.*;
 import org.mvel2.ParserContext;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.PrintStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.*;
+import java.util.*;
 
 public class ConfigFileUtil {
 
@@ -80,13 +68,21 @@ public class ConfigFileUtil {
             if (paramSheet != null)
                 attributeMap.putAll(paramSheet.getAttributeMap(profile));
             File outputFile = new File(outputPath);
+            String mvlContent = FileUtils.readFileToString(new File(mvlFilePath), "UTF-8");
+            String lineSeparator = "\n";
+            if (mvlContent.contains(IOUtils.LINE_SEPARATOR_WINDOWS)) {
+                lineSeparator = IOUtils.LINE_SEPARATOR_WINDOWS;
+            } else if (mvlContent.contains("\r")) {
+                lineSeparator = "\r";
+            }
             try (InputStream contentStream = template.getContentStream(attributeMap);
                  BufferedReader reader = new BufferedReader(new InputStreamReader(contentStream));
                  OutputStream xmlStream = FileUtils.openOutputStream(outputFile)) {
                 String line;
                 while ((line = reader.readLine()) != null) {
                     if (!trim || !line.trim().isEmpty()) {
-                        IOUtils.write(line + "\r\n", xmlStream, "UTF-8");
+                        IOUtils.write(line, xmlStream, "UTF-8");
+                        IOUtils.write(lineSeparator, xmlStream, "UTF-8");
                     }
                 }
             }
