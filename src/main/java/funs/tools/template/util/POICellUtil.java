@@ -1,13 +1,9 @@
 package funs.tools.template.util;
 
-import java.text.MessageFormat;
-
-import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.ss.formula.eval.ErrorEval;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.DataFormatter;
-import org.apache.poi.ss.usermodel.RichTextString;
+import org.apache.poi.ss.usermodel.*;
+
+import java.text.MessageFormat;
 
 public class POICellUtil {
 
@@ -19,29 +15,29 @@ public class POICellUtil {
 		}
 		String content = null;
 		switch (cell.getCellType()) {
-		case Cell.CELL_TYPE_STRING:
+		case STRING:
 			content = cell.getRichStringCellValue().getString();
 			break;
-		case Cell.CELL_TYPE_NUMERIC:
+		case NUMERIC:
 			content = dataFormatter.formatCellValue(cell);
 			break;
-		case Cell.CELL_TYPE_BOOLEAN:
+		case BOOLEAN:
 			content = String.valueOf(cell.getBooleanCellValue());
 			break;
-		case Cell.CELL_TYPE_ERROR:
+		case ERROR:
 			content = ErrorEval.getText(cell.getErrorCellValue());
 			break;
-		case Cell.CELL_TYPE_BLANK:
+		case BLANK:
 			break;
-		case Cell.CELL_TYPE_FORMULA:
+		case FORMULA:
 			switch (cell.getCachedFormulaResultType()) {
-			case Cell.CELL_TYPE_STRING:
+			case STRING:
 				RichTextString str = cell.getRichStringCellValue();
 				if (str != null && str.length() > 0) {
 					content = str.toString();
 				}
 				break;
-			case Cell.CELL_TYPE_NUMERIC:
+			case NUMERIC:
 				CellStyle style = cell.getCellStyle();
 				if (style == null) {
 					content = String.valueOf(cell.getNumericCellValue());
@@ -54,10 +50,10 @@ public class POICellUtil {
 									);
 				}
 				break;
-			case Cell.CELL_TYPE_BOOLEAN:
+			case BOOLEAN:
 				content = String.valueOf(cell.getBooleanCellValue());
 				break;
-			case HSSFCell.CELL_TYPE_ERROR:
+			case ERROR:
 				content = ErrorEval.getText(cell.getErrorCellValue());
 				break;
 

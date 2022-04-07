@@ -1,12 +1,9 @@
 package funs.tools.template;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-
 import org.apache.commons.lang3.StringUtils;
+
+import java.util.*;
+import java.util.Map.Entry;
 
 public class TemplateAttribute {
 
@@ -19,13 +16,13 @@ public class TemplateAttribute {
 			return attributes;
 		if (profileMap.isEmpty())
 			return attributes;
-		Map<String, Object> profileAtrribute = profileMap.get(profile);
-		if (profileAtrribute == null || profileAtrribute.isEmpty())
+		Map<String, Object> profileAttribute = profileMap.get(profile);
+		if (profileAttribute == null || profileAttribute.isEmpty())
 			return attributes;
 		Map<String, Object> map = new HashMap<>();
 		if (attributes != null)
 			map.putAll(attributes);
-		map.putAll(profileAtrribute);
+		map.putAll(profileAttribute);
 		return map;
 	}
 
